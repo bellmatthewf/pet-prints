@@ -2,7 +2,7 @@
 
 #Author: Matthew Bell - 2018
 
-"""Controller for Pet Prints. Uses custom socket to communicate with servers and 
+"""Controller for Pet Prints. Uses custom socket to communicate with servers and
 the client view module to display GUI for end user"""
 
 import client_view, custom_socket, dropbox
@@ -37,8 +37,8 @@ logger.info("STARTED CONTOLLER")
 
 class Controller:
 
-	"""self.server_dict = {*pi_id {"ip_address" : "192.168.3.39","photo_path", 
-	"/home/pi/Pictures/{pi_id}.jpg", "tk_photo_frame" : tk_frame_object, 
+	"""self.server_dict = {*pi_id {"ip_address" : "192.168.3.39","photo_path",
+	"/home/pi/Pictures/{pi_id}.jpg", "tk_photo_frame" : tk_frame_object,
 	"tk_photo_label" : tk_label_object, "raw_photo" : tk_photo_object}}"""
 	def __init__(self, src_host, src_port, dest_port, broadcast_host, number_of_servers):
 		self.src_host = src_host
@@ -50,7 +50,7 @@ class Controller:
 		self.root, self.master = self.create_main_window()
 		self.main_view = client_view.Main_View(self.master, self)
 		self.review_view = client_view.Review_View(self.master, self)
-		self.sockets = custom_socket.Sockets(self.src_host, self.src_port, 
+		self.sockets = custom_socket.Sockets(self.src_host, self.src_port,
 		dest_port = self.dest_port, broadcast_host = self.broadcast_host)
 
 		threading.Thread(target=self.start_animation, args=("Checking cameras",)).start()
@@ -79,7 +79,7 @@ class Controller:
 		self.iter_animation = cycle(animation)
 		self.loading_frame = tk.Frame(self.master)
 		self.loading_frame.grid(row=0, column=0, sticky="NSEW")
-		self.loading_label = tk.Label(self.loading_frame, text="{}{}".format(self.label_text, animation[0]), 
+		self.loading_label = tk.Label(self.loading_frame, text="{}{}".format(self.label_text, animation[0]),
 		font=self.main_view.font_title)
 		self.loading_label.place(anchor="center", relx=.5, rely=.5)
 		self.loading_frame.tkraise()
@@ -236,7 +236,7 @@ class Controller:
 
 
 	def confirm_upload(self):
-		answer = messagebox.askyesno(title="Confirm Upload", 
+		answer = messagebox.askyesno(title="Confirm Upload",
 		message="Confirm photo upload?")
 		return answer
 
@@ -278,20 +278,20 @@ class Controller:
 		self.sockets.close_socket(udp = True)
 		Popen(["sudo", "poweroff"])
 
-	"""Labels which must be applied by the controller as 
+	"""Labels which must be applied by the controller as
 	they change based on controller variables"""
 	def create_counter_labels(self, number_of_photos, starting_computer_id):
-		self.label_counter = tk.Label(self.review_view.frame_review, 
-		text="1/{}".format(number_of_photos), 
+		self.label_counter = tk.Label(self.review_view.frame_review,
+		text="1/{}".format(number_of_photos),
 		font=self.review_view.font_buttonH2)
 		self.label_counter.place(anchor="center", relx=.5, rely=.13)
-		self.label_pi_num = tk.Label(self.review_view.frame_review, 
-		text="#{}".format(starting_computer_id), font=self.review_view.font_unimportant) 
+		self.label_pi_num = tk.Label(self.review_view.frame_review,
+		text="#{}".format(starting_computer_id), font=self.review_view.font_unimportant)
 		self.label_pi_num.place(anchor="center", relx=.75, rely=.13)
 
 	def config_counter_labels(self, current_photo, number_of_photos, current_camera_id):
 		self.label_counter.config(text="{}/{}".format(current_photo, number_of_photos))
-		self.label_pi_num.config(text="#{}".format(current_camera_id))	
+		self.label_pi_num.config(text="#{}".format(current_camera_id))
 
 	def delete_counter_labels(self):
 		self.label_counter.destroy()
@@ -300,7 +300,7 @@ class Controller:
 def main(src_host, src_port, dest_port, broadcast_host, number_of_servers):
 	main_controller = Controller(src_host, src_port, dest_port, broadcast_host,
 	number_of_servers)
-	main_controller.root.mainloop()	
+	main_controller.root.mainloop()
 
 if __name__ == "__main__":
 	main(src_host, src_port, dest_port, broadcast_host, number_of_servers)
