@@ -8,6 +8,10 @@ pillow = "*"
 dropbox = "*"
 
 [dev-packages]
+black = "*"
 
 [requires]
 python_version = "3.7.5"
+
+[pipenv]
+allow_prereleases = true
