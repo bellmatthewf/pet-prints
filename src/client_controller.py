@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 # Author: Matthew Bell - 2018
 
 """Controller for Pet Prints. Uses custom socket to communicate with servers and
